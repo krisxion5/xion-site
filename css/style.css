@@ -202,3 +202,29 @@ nav a[aria-current=true]{color:var(--text)}
   .top-btn:hover{border-color:var(--pink)}
 }
 @media(max-width:760px){.steps{grid-template-columns:1fr}.vol{width:100%}.vol input{width:100%}}
+
+/* ===== Round 4: illustrations, mascot, terminal ===== */
+@keyframes bob{50%{transform:translateY(-5px)}}
+@keyframes eyeblink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes twk{50%{opacity:.25;transform:scale(.6)}}
+@keyframes type{to{width:calc(var(--n)*1ch)}}
+@keyframes spark{to{transform:translate3d(var(--dx),var(--dy),0) rotate(45deg) scale(.2);opacity:0}}
+.media img{object-fit:cover}
+.about-art{display:grid;place-items:center}
+.mascot{position:relative;width:min(100%,280px);padding:0;border:0;background:none;color:inherit;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.mascot svg{display:block;width:100%;height:auto;overflow:visible}
+.mascot .bob{animation:bob 4s ease-in-out infinite}
+.mascot .eyes{animation:eyeblink 5s infinite;transform-box:fill-box;transform-origin:center}
+.mascot .pupil{transform:translate(calc(var(--ex,0)*1px),calc(var(--ey,0)*1px));transition:transform .15s}
+.mascot .tw{animation:twk 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.mascot.off *{animation-play-state:paused}
+.mascot:active{transform:scale(.96)}
+.bubble{position:absolute;top:0;right:0;z-index:1;max-width:11rem;padding:.4rem .8rem;border:1px solid var(--pink);border-radius:12px 12px 12px 2px;background:#000;color:var(--text);font-size:.85rem;line-height:1.35;text-align:left}
+.term{margin-top:2rem;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);font:.9rem/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.term .l{margin:0;overflow:hidden;white-space:nowrap;color:var(--pink)}
+.term .l.o{color:var(--dim)}
+.js .term .l{width:0}
+.js .term.in .l{animation:type calc(var(--n)*35ms) steps(var(--n)) var(--d) both}
+.term .end::after{content:"";display:inline-block;width:.55ch;height:1em;margin-left:2px;vertical-align:-.15em;background:var(--pink);animation:blink 1s steps(2) infinite}
+.spark{position:fixed;z-index:60;width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--pink);transform:rotate(45deg);pointer-events:none;animation:spark .6s ease-out forwards}
+@media(prefers-reduced-motion:reduce){.js .term .l{width:auto}.mascot *{animation:none!important}}

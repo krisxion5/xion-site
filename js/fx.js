@@ -21,7 +21,7 @@ function split(h) {
 
 function reveals(heroTitle) {
   const count = new Map();
-  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li").forEach((el) => {
+  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li,.term").forEach((el) => {
     const k = count.get(el.parentNode) || 0; count.set(el.parentNode, k + 1);
     el.classList.add("rv"); el.style.setProperty("--i", Math.min(k, 8));
   });
