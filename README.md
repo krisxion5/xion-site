@@ -36,3 +36,12 @@ Animations live in `js/fx.js` and the bottom of `css/style.css`. They use only t
 
 ## Features
 Quick-jump menu (Ctrl/Cmd+K or the Jump button), copy-email and copy-handle buttons, a bug-squash mini game (best score saved on the device), a mascot with a hidden cool mode, tiny UI blips while music is on, and a one-time loading screen per session.
+
+## Updating from a new zip
+`js/config.js` is deliberately not inside update zips, so your details are never overwritten. First time on a fresh clone: copy `js/config.example.js` to `js/config.js` and fill it in.
+```
+cd ~/mysite
+unzip -o ~/storage/downloads/xion-portfolio.zip
+cd xion-portfolio
+git add . && git commit -m "Update" && git push
+```
