@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Xion | Developer who builds things that actually work</title>
+<meta name="description" content="Xion is a developer building websites, Discord bots, Minecraft Bedrock add-ons and AI-integrated tools, and fixing projects that are almost there.">
+<meta name="color-scheme" content="dark">
+<script>document.documentElement.classList.add("js")</script>
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Xion | Developer who builds things that actually work">
+<meta property="og:description" content="Websites, Discord bots, Minecraft Bedrock add-ons and AI-integrated tools.">
+<meta property="og:image" content="/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&family=Inter:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#top" aria-label="Xion, back to top">xion<b>.</b></a>
+  <button id="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+  <nav id="nav" aria-label="Main">
+    <a href="#work">Work</a><a href="#mcpe">MCPE</a><a href="#skills">Skills</a><a href="#beyond">Beyond code</a><a href="#contact">Contact</a>
+    <button class="mbtn" id="music" aria-pressed="false" aria-label="Toggle background music"><i></i><span>Music off</span></button>
+  </nav>
+</div></header>
+<main id="main">
+<section class="hero" id="top" style="border:0"><div class="wrap">
+  <h1 data-split>I build things that <em>actually</em> work.</h1>
+  <p class="lede">Xion. Developer and builder: websites, Discord bots, Minecraft Bedrock add-ons, AI integration and automation. I also debug and improve projects that are almost there.</p>
+  <div class="cta"><a class="btn main" href="#contact">Contact me</a><a class="btn ghost" href="#work">See the work</a></div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <h2 data-split>Selected work</h2>
+  <p class="sub">A few projects, each with something worth looking at.</p>
+  <div id="project-list"></div>
+</div></section>
+
+<section id="mcpe"><div class="wrap cols">
+  <div><h2 data-split>MCPE Community</h2>
+  <p class="sub">Development work inside a large Minecraft Bedrock community.</p></div>
+  <div>
+    <p>I build for people who use the tools every day: Discord bots, Minecraft systems, tier-list development and the community tooling around them.</p>
+    <!-- Verify the member count before publishing, then add it here (about 10k at last check). -->
+    <p class="note" style="margin-top:1.5rem">When thousands of members rely on what you ship, small bugs get noticed fast. It's where I learned to keep things simple and fix them quickly.</p>
+  </div>
+</div></section>
+
+<section id="ai"><div class="wrap cols">
+  <div><h2 data-split>AI integration &amp; debugging</h2></div>
+  <p>I work with modern AI tools and build them into projects. I read and understand the code they generate, debug what breaks, restructure messy sites and turn rough first drafts into finished products.</p>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2 data-split>Skills</h2>
+  <ul class="skills">
+    <li class="hl">Web development</li><li class="hl">JavaScript</li><li>HTML</li><li>CSS</li>
+    <li class="hl">Discord bot development</li><li class="hl">Minecraft Bedrock add-ons</li>
+    <li>AI integration</li><li>Automation</li><li class="hl">Debugging</li><li>UI/UX implementation</li>
+  </ul>
+</div></section>
+
+<section class="beyond" id="beyond"><div class="wrap cols">
+  <h2 data-split>Beyond code</h2>
+  <p>I play guitar, and I'm deep into modern technical styles: odd meters, tight rhythm work, tone that sounds like a decision. It has nothing to do with my projects, and that's the point.</p>
+  <div class="strings" aria-hidden="true"></div>
+</div></section>
+
+<section id="about"><div class="wrap cols">
+  <h2 data-split>About</h2>
+  <p>I like building digital projects, trying out new tech and working inside Minecraft and Discord communities. My favorite part is turning an idea into something people can use.</p>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <h2 data-split>Got something to build?</h2>
+  <div class="cta">
+    <a class="btn main" data-discord target="_blank" rel="noopener">Message on Discord (<span data-handle></span>)</a>
+    <a class="btn ghost" data-email>Email <span data-email-text></span></a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">© <span id="y"></span> Xion</div></footer>
+<script>document.getElementById("y").textContent=new Date().getFullYear()</script>
+</body>
+</html>
