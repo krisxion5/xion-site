@@ -27,14 +27,17 @@
   <nav id="nav" aria-label="Main">
     <a href="#work">Work</a><a href="#mcpe">MCPE</a><a href="#skills">Skills</a><a href="#beyond">Beyond code</a><a href="#contact">Contact</a>
     <button class="mbtn" id="music" aria-pressed="false" aria-label="Toggle background music"><i></i><span>Music off</span></button>
+    <span class="vol"><input id="vol" type="range" min="0" max="100" value="35" aria-label="Music volume"></span>
   </nav>
 </div></header>
 <main id="main">
 <section class="hero" id="top" style="border:0"><div class="wrap">
   <h1 data-split>I build things that <em>actually</em> work.</h1>
   <p class="lede">Xion. Developer and builder: websites, Discord bots, Minecraft Bedrock add-ons, AI integration and automation. I also debug and improve projects that are almost there.</p>
+  <p class="roles"><span class="sr">Currently building Discord bots, Bedrock add-ons, fast websites and AI-integrated tools.</span><span aria-hidden="true">Building <span id="role"></span><i class="caret"></i></span></p>
   <div class="cta"><a class="btn main" href="#contact">Contact me</a><a class="btn ghost" href="#work">See the work</a></div>
 </div></section>
+<div class="marquee" aria-hidden="true"><div class="track"><span>Web development</span><span>Discord bots</span><span>Minecraft Bedrock add-ons</span><span>AI integration &amp; debugging</span><span>Automation</span><span>UI implementation</span><span>JavaScript</span><span>HTML &amp; CSS</span><span>Web development</span><span>Discord bots</span><span>Minecraft Bedrock add-ons</span><span>AI integration &amp; debugging</span><span>Automation</span><span>UI implementation</span><span>JavaScript</span><span>HTML &amp; CSS</span></div></div>
 
 <section id="work"><div class="wrap">
   <h2 data-split>Selected work</h2>
@@ -66,6 +69,15 @@
   </ul>
 </div></section>
 
+<section id="process"><div class="wrap">
+  <h2 data-split>How I work</h2>
+  <ol class="steps">
+    <li><h3>Understand it</h3><p>Read the problem and the existing code before touching anything. Most bugs have a boring cause.</p></li>
+    <li><h3>Build it properly</h3><p>Small, readable pieces I can explain later. AI tools speed up the first draft; I read, test and fix what they produce.</p></li>
+    <li><h3>Break it, then polish it</h3><p>Test on a real phone, fix what breaks, then tune the details until it feels right.</p></li>
+  </ol>
+</div></section>
+
 <section class="beyond" id="beyond"><div class="wrap cols">
   <h2 data-split>Beyond code</h2>
   <p>I play guitar, and I'm deep into modern technical styles: odd meters, tight rhythm work, tone that sounds like a decision. It has nothing to do with my projects, and that's the point.</p>
@@ -85,6 +97,7 @@
   </div>
 </div></section>
 </main>
+<a class="top-btn" href="#top" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
 <footer><div class="wrap">© <span id="y"></span> Xion</div></footer>
 <script>document.getElementById("y").textContent=new Date().getFullYear()</script>
 </body>

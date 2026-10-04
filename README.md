@@ -29,7 +29,7 @@ git push -u origin main
 3. Deploy. Every push to `main` redeploys. Update `siteUrl` after you get your domain.
 
 ## Music
-Lo-fi is synthesized in the browser (`js/music.js`), so no audio files or licenses are involved. It is off by default and starts only after a click. The on/off choice is remembered for the session.
+Lo-fi is synthesized in the browser (`js/music.js`): electric-piano chords, soft drums, bass and vinyl crackle. No audio files, no licensing. It is on by default at a low volume, with a slider in the nav. Browsers block sound until the first tap, so the button reads "Tap for music" until then. Turning it off is remembered.
 
 ## Motion and performance
 Animations live in `js/fx.js` and the bottom of `css/style.css`. They use only transform and opacity, run once on scroll via IntersectionObserver, pause when the tab is hidden or the hero is off screen, and switch off with `prefers-reduced-motion`. There is no canvas, no particle system and no animated blur. Mouse-only extras (hero light, card glow) are skipped on touch devices.

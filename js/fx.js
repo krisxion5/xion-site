@@ -21,7 +21,7 @@ function split(h) {
 
 function reveals(heroTitle) {
   const count = new Map();
-  $$(".sub,.cols p,.skills li,.contact .cta,.project").forEach((el) => {
+  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li").forEach((el) => {
     const k = count.get(el.parentNode) || 0; count.set(el.parentNode, k + 1);
     el.classList.add("rv"); el.style.setProperty("--i", Math.min(k, 8));
   });
@@ -42,12 +42,14 @@ function navState() {
 }
 
 function scrollUi() {
-  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu");
+  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu"), hero = $(".hero"), topBtn = $(".top-btn");
   bar.className = "bar"; bar.setAttribute("aria-hidden", "true"); header.append(bar);
   let last = 0, queued = false;
   const frame = () => {
     const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
+    if (y < innerHeight * 1.2) hero.style.setProperty("--p", Math.min(y / innerHeight, 1).toFixed(3));
+    topBtn.classList.toggle("show", y > 700);
     if (!reduce && menu.getAttribute("aria-expanded") !== "true" && Math.abs(y - last) > 6) {
       header.classList.toggle("hide", y > last && y > 240);
     }

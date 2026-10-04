@@ -2,6 +2,7 @@ import { CONFIG } from "./config.js";
 import { projects } from "./projects.js";
 import * as music from "./music.js";
 import { initFx } from "./fx.js";
+import { initExtras } from "./extras.js";
 
 const $ = (s) => document.querySelector(s);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
@@ -41,14 +42,26 @@ btn.addEventListener("click", () => setNav(btn.getAttribute("aria-expanded") !==
 nav.addEventListener("click", (e) => e.target.tagName === "A" && setNav(false));
 document.addEventListener("keydown", (e) => e.key === "Escape" && setNav(false));
 
-// Music: off until a click. If it was on earlier this session, resume on the first interaction.
-const mb = $("#music");
-const paint = () => { mb.setAttribute("aria-pressed", music.isOn()); mb.querySelector("span").textContent = music.isOn() ? "Music on" : "Music off"; };
-mb.addEventListener("click", async () => { music.isOn() ? music.stop() : await music.start(); paint(); });
-if (music.wasOn()) {
-  const resume = async () => { await music.start(); paint(); };
-  addEventListener("pointerdown", resume, { once: true }); addEventListener("keydown", resume, { once: true });
+// Music: on by default at low volume. Browsers only allow sound after a tap, so it starts on the first one.
+const mb = $("#music"), vol = $("#vol");
+vol.value = music.getVolume();
+const labels = { off: "Music off", waiting: "Tap for music", on: "Music on" };
+const paint = () => { const s = music.state(); mb.setAttribute("aria-pressed", s !== "off"); mb.querySelector("span").textContent = labels[s]; };
+music.onChange(paint);
+mb.addEventListener("click", () => {
+  const s = music.state();
+  if (s === "waiting") music.unlock(); else if (s === "on") music.stop(); else music.start();
+});
+vol.addEventListener("input", () => music.setVolume(+vol.value));
+if (!music.userOff()) {
+  music.start();
+  const unlock = (e) => {
+    if (e.target.closest && e.target.closest("#music")) return;
+    music.unlock();
+    ["pointerdown", "keydown", "touchend"].forEach((ev) => removeEventListener(ev, unlock));
+  };
+  ["pointerdown", "keydown", "touchend"].forEach((ev) => addEventListener(ev, unlock, { passive: true }));
 }
 paint();
-
 initFx();
+initExtras();

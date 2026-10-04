@@ -169,3 +169,36 @@ nav a[aria-current=true]{color:var(--text)}
 }
 .skills li:active{transform:scale(.95)}
 @media(prefers-reduced-motion:reduce){.hero h1 em::after{transform:none}.js section::before{transform:none}.js .rv,.js [data-split] .wi{opacity:1;transform:none}}
+
+/* ===== Round 3: more personality ===== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@keyframes blink{50%{opacity:0}}
+@keyframes marq{to{transform:translate3d(-50%,0,0)}}
+.vol input{width:84px;height:24px;accent-color:var(--pink);background:transparent;vertical-align:middle;cursor:pointer}
+.roles{margin:-1.4rem 0 2.2rem;min-height:1.7em;animation:rise .8s cubic-bezier(.2,.8,.2,1) 1.1s both}
+#role{color:var(--pink)}
+.caret{display:inline-block;width:2px;height:1em;margin-left:3px;vertical-align:-.15em;background:var(--pink);animation:blink 1s steps(2) infinite}
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1rem 0}
+.track{display:flex;width:max-content;animation:marq 40s linear infinite}
+.track span{display:flex;align-items:center;gap:1.6rem;padding:0 1.6rem;white-space:nowrap;color:var(--dim);font:600 1.1rem "Bricolage Grotesque",sans-serif}
+.track span::before{content:"";width:6px;height:6px;background:var(--pink);transform:rotate(45deg)}
+.marquee.off .track{animation-play-state:paused}
+.steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:s}
+.steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:1.2rem;transition:border-color .3s}
+.steps li::before{content:counter(s);color:var(--pink);font:600 .95rem "Bricolage Grotesque",sans-serif}
+.steps h3{font-size:1.4rem;margin:.4rem 0 .5rem}.steps p{color:var(--dim)}
+.top-btn{position:fixed;right:max(1.2rem,env(safe-area-inset-right));bottom:max(1.2rem,env(safe-area-inset-bottom));z-index:6;width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:#000;color:var(--pink);opacity:0;pointer-events:none;transform:translate3d(0,12px,0);transition:opacity .3s,transform .3s,border-color .2s}
+.top-btn.show{opacity:1;pointer-events:auto;transform:none}
+.top-btn:active{transform:scale(.92)}
+.cursor{position:fixed;left:0;top:0;width:28px;height:28px;border:1px solid var(--pink);border-radius:50%;pointer-events:none;z-index:50;opacity:0;transition:opacity .3s,width .25s,height .25s,margin .25s,background .25s;will-change:transform}
+.cursor.on{opacity:.7}
+.cursor.big{width:44px;height:44px;margin:-8px 0 0 -8px;background:var(--pink-soft)}
+.btn{translate:var(--tx,0) var(--ty,0);transition:transform .25s cubic-bezier(.2,.8,.2,1),translate .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .2s,background .2s,color .2s}
+@media(prefers-reduced-motion:no-preference){.hero .wrap{transform:translate3d(0,calc(var(--p,0)*-50px),0);opacity:calc(1 - var(--p,0)*1.1)}}
+@media(hover:hover){
+  .project:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);transition-duration:.2s}
+  .steps li:hover{border-color:var(--pink)}
+  .marquee:hover .track{animation-play-state:paused}
+  .top-btn:hover{border-color:var(--pink)}
+}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.vol{width:100%}.vol input{width:100%}}
