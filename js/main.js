@@ -17,10 +17,11 @@ document.querySelectorAll("[data-handle]").forEach((n) => (n.textContent = CONFI
 
 // Projects
 const list = $("#project-list");
-projects.forEach((p) => {
+projects.forEach((p, i) => {
   const card = el("article", "project" + (p.featured ? " featured" : ""));
   const media = el("div", "media");
   if (p.tags[0]) media.append(el("span", "badge", p.tags[0]));
+  media.append(el("span", "num", String(i + 1).padStart(2, "0")));
   if (p.image) {
     const img = new Image(); img.src = p.image; img.alt = p.alt || `Illustration for ${p.title}`;
     img.loading = "lazy"; img.decoding = "async"; img.width = 1200; img.height = 750;

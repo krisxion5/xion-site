@@ -101,8 +101,21 @@ function mascot() {
   }
 }
 
+function glow() { // soft pink light under the mouse, one fixed element
+  const g = document.createElement("div"); g.className = "glow"; g.setAttribute("aria-hidden", "true"); document.body.append(g);
+  let x = 0, y = 0, raf = 0;
+  addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    x = e.clientX - 240; y = e.clientY - 240; g.classList.add("on");
+    raf = raf || requestAnimationFrame(() => { g.style.transform = `translate3d(${x}px,${y}px,0)`; raf = 0; });
+  }, { passive: true });
+  document.documentElement.addEventListener("mouseleave", () => g.classList.remove("on"));
+}
+
 export function initExtras() {
-  typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); mascot();
+  const t0 = document.title;
+  document.addEventListener("visibilitychange", () => (document.title = document.hidden ? "psst. come back" : t0));
+  typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); pauseOffscreen(".rig"); mascot();
   if (!reduce) sparks();
-  if (fine && !reduce) { tilt(); magnet(); cursor(); }
+  if (fine && !reduce) { tilt(); magnet(); cursor(); glow(); }
 }
