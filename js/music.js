@@ -109,3 +109,12 @@ document.addEventListener("visibilitychange", () => {
   if (!ctx || !want) return;
   document.hidden ? ctx.suspend() : ctx.resume().catch(() => {});
 });
+
+// Tiny UI blip, only while music is on, so it follows the same volume.
+export function blip(f = 660) {
+  if (state() !== "on") return;
+  const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
+  o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 1.6, t + 0.08);
+  g.gain.setValueAtTime(0.08, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+  o.connect(g); g.connect(bus); g.connect(verbIn); o.start(t); o.stop(t + 0.14);
+}

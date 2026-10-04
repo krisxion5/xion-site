@@ -3,6 +3,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+import { blip } from "./music.js";
 const roles = ["Discord bots", "Minecraft Bedrock add-ons", "fast, tidy websites", "AI-integrated tools", "fixes for broken projects"];
 
 function typed() {
@@ -22,8 +23,7 @@ function typed() {
 }
 
 function pauseOffscreen(sel) {
-  const el = $(sel); if (!el) return;
-  new IntersectionObserver(([e]) => el.classList.toggle("off", !e.isIntersecting)).observe(el);
+  $$(sel).forEach((el) => new IntersectionObserver(([e]) => el.classList.toggle("off", !e.isIntersecting)).observe(el));
 }
 
 function tilt() {
@@ -66,7 +66,7 @@ function cursor() {
   document.documentElement.addEventListener("mouseleave", () => c.classList.remove("on"));
 }
 
-function burst(x, y, n = 6) {
+export function burst(x, y, n = 6) {
   for (let i = 0; i < n; i++) {
     const s = document.createElement("i"), a = (Math.PI * 2 * i) / n + Math.random() * 0.6, d = 28 + Math.random() * 34;
     s.className = "spark"; s.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px`;
@@ -75,7 +75,7 @@ function burst(x, y, n = 6) {
 }
 function sparks() {
   let last = 0;
-  document.addEventListener("click", (e) => { const n = performance.now(); if (n - last > 150) { last = n; burst(e.clientX, e.clientY); } });
+  document.addEventListener("click", (e) => { if (e.target.closest("a,button")) blip(520); const n = performance.now(); if (n - last > 150) { last = n; burst(e.clientX, e.clientY); } });
   let buf = "";
   addEventListener("keydown", (e) => { buf = (buf + e.key).slice(-4).toLowerCase(); if (buf === "xion") burst(innerWidth / 2, innerHeight / 2, 18); });
 }
@@ -84,6 +84,8 @@ function mascot() {
   const b = $(".bubble", m), lines = ["Hey, I'm the mascot.", "Need a bot built?", "Try the volume slider.", "Tap me again."]; let k = 0;
   m.addEventListener("click", () => {
     b.textContent = lines[k++ % lines.length];
+    if (k === 5) { m.classList.add("cool"); b.textContent = "Cool mode: on."; }
+    if (k === 10) { m.classList.remove("cool"); b.textContent = "Okay, shades off."; }
     const r = m.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 3, 8);
     if (!reduce) m.animate([{ transform: "none" }, { transform: "translateY(-14px) rotate(-3deg)" }, { transform: "none" }], { duration: 450, easing: "ease-out" });
   });

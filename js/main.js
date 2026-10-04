@@ -3,6 +3,8 @@ import { projects } from "./projects.js";
 import * as music from "./music.js";
 import { initFx } from "./fx.js";
 import { initExtras } from "./extras.js";
+import { initPalette } from "./palette.js";
+import { initGame } from "./game.js";
 
 const $ = (s) => document.querySelector(s);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; };
@@ -65,3 +67,5 @@ if (!music.userOff()) {
 paint();
 initFx();
 initExtras();
+initPalette();
+initGame();

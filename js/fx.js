@@ -21,7 +21,7 @@ function split(h) {
 
 function reveals(heroTitle) {
   const count = new Map();
-  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li,.term").forEach((el) => {
+  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li,.term,.game").forEach((el) => {
     const k = count.get(el.parentNode) || 0; count.set(el.parentNode, k + 1);
     el.classList.add("rv"); el.style.setProperty("--i", Math.min(k, 8));
   });
@@ -62,14 +62,17 @@ function scrollUi() {
 // One soft light follows a mouse over the hero; touch devices simply see it parked.
 function heroLight(hero) {
   const spot = document.createElement("div"); spot.className = "spot"; hero.prepend(spot);
-  let rect, dirty = true, x = 0, y = 0, raf = 0;
+  let rect, dirty = true, x = 0, y = 0, nx = 0, ny = 0, raf = 0;
+  const stk = $$(".stk");
   addEventListener("scroll", () => (dirty = true), { passive: true });
   hero.addEventListener("pointerenter", () => hero.classList.add("live"));
   hero.addEventListener("pointerleave", () => hero.classList.remove("live"));
   hero.addEventListener("pointermove", (e) => {
     if (dirty) { rect = hero.getBoundingClientRect(); dirty = false; }
     x = e.clientX - rect.left - 260; y = e.clientY - rect.top - 260;
-    raf = raf || requestAnimationFrame(() => { spot.style.transform = `translate3d(${x}px,${y}px,0)`; raf = 0; });
+    nx = (e.clientX - rect.left) / rect.width - 0.5; ny = (e.clientY - rect.top) / rect.height - 0.5;
+    raf = raf || requestAnimationFrame(() => { spot.style.transform = `translate3d(${x}px,${y}px,0)`;
+      stk.forEach((s, i) => (s.style.translate = `${(-nx * (i + 1) * 14).toFixed(1)}px ${(-ny * (i + 1) * 14).toFixed(1)}px`)); raf = 0; });
   }, { passive: true });
 }
 
@@ -86,8 +89,16 @@ export function initFx() {
   const hero = $(".hero"), title = $("h1", hero);
   $$("[data-split]").forEach(split);
   reveals(title); navState(); scrollUi();
+  const root = document.documentElement;
+  const boot = new Promise((r) => {
+    if (!root.classList.contains("booting")) return r();
+    setTimeout(() => {
+      $("#boot").classList.add("done"); try { sessionStorage.setItem("xion-boot", "1"); } catch {}
+      setTimeout(() => { root.classList.remove("booting"); r(); }, 450);
+    }, 1100);
+  });
   const fonts = document.fonts ? Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 700))]) : Promise.resolve();
-  fonts.then(() => requestAnimationFrame(() => title.classList.add("in")));
+  Promise.all([fonts, boot]).then(() => requestAnimationFrame(() => title.classList.add("in")));
   new IntersectionObserver(([e]) => hero.classList.toggle("off", !e.isIntersecting)).observe(hero);
   document.addEventListener("visibilitychange", () => document.documentElement.classList.toggle("paused", document.hidden));
   if (fine && !reduce) { heroLight(hero); cardGlow(); }

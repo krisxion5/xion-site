@@ -33,3 +33,6 @@ Lo-fi is synthesized in the browser (`js/music.js`): electric-piano chords, soft
 
 ## Motion and performance
 Animations live in `js/fx.js` and the bottom of `css/style.css`. They use only transform and opacity, run once on scroll via IntersectionObserver, pause when the tab is hidden or the hero is off screen, and switch off with `prefers-reduced-motion`. There is no canvas, no particle system and no animated blur. Mouse-only extras (hero light, card glow) are skipped on touch devices.
+
+## Features
+Quick-jump menu (Ctrl/Cmd+K or the Jump button), copy-email and copy-handle buttons, a bug-squash mini game (best score saved on the device), a mascot with a hidden cool mode, tiny UI blips while music is on, and a one-time loading screen per session.

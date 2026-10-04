@@ -7,6 +7,7 @@
 <meta name="description" content="Xion is a developer building websites, Discord bots, Minecraft Bedrock add-ons and AI-integrated tools, and fixing projects that are almost there.">
 <meta name="color-scheme" content="dark">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{if(!sessionStorage.getItem("xion-boot")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("booting")}catch(e){}</script>
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -20,6 +21,7 @@
 <script type="module" src="js/main.js"></script>
 </head>
 <body>
+<div class="boot" id="boot" aria-hidden="true"><div><b>xion<i>.</i></b><span class="bootbar"><i></i></span></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
   <a class="logo" href="#top" aria-label="Xion, back to top">xion<b>.</b></a>
@@ -28,6 +30,7 @@
     <a href="#work">Work</a><a href="#mcpe">MCPE</a><a href="#skills">Skills</a><a href="#beyond">Beyond code</a><a href="#about">About</a><a href="#contact">Contact</a>
     <button class="mbtn" id="music" aria-pressed="false" aria-label="Toggle background music"><i></i><span>Music off</span></button>
     <span class="vol"><input id="vol" type="range" min="0" max="100" value="35" aria-label="Music volume"></span>
+    <button class="mbtn" id="quick" type="button" aria-label="Quick jump menu"><span>Jump</span></button>
   </nav>
 </div></header>
 <main id="main">
@@ -36,8 +39,11 @@
   <p class="lede">Xion. Developer and builder: websites, Discord bots, Minecraft Bedrock add-ons, AI integration and automation. I also debug and improve projects that are almost there.</p>
   <p class="roles"><span class="sr">Currently building Discord bots, Bedrock add-ons, fast websites and AI-integrated tools.</span><span aria-hidden="true">Building <span id="role"></span><i class="caret"></i></span></p>
   <div class="cta"><a class="btn main" href="#contact">Contact me</a><a class="btn ghost" href="#work">See the work</a></div>
+  <p class="hint">Press <kbd>Ctrl</kbd> + <kbd>K</kbd> for the quick menu.</p>
+  <div class="stickers" aria-hidden="true"><img class="stk s1" src="img/p-bot.svg" alt="" width="200" height="125"><img class="stk s2" src="img/p-addon.svg" alt="" width="200" height="125"><img class="stk s3" src="img/p-ai.svg" alt="" width="200" height="125"></div>
 </div></section>
 <div class="marquee" aria-hidden="true"><div class="track"><span>Web development</span><span>Discord bots</span><span>Minecraft Bedrock add-ons</span><span>AI integration &amp; debugging</span><span>Automation</span><span>UI implementation</span><span>JavaScript</span><span>HTML &amp; CSS</span><span>Web development</span><span>Discord bots</span><span>Minecraft Bedrock add-ons</span><span>AI integration &amp; debugging</span><span>Automation</span><span>UI implementation</span><span>JavaScript</span><span>HTML &amp; CSS</span></div></div>
+<div class="marquee rev" aria-hidden="true"><div class="track"><span>Debugging at 2am</span><span>Lo-fi on</span><span>Pink over purple</span><span>Ships things</span><span>Guitar riffs</span><span>Fixes what's broken</span><span>Reads the code</span><span>Tests on a phone</span><span>Debugging at 2am</span><span>Lo-fi on</span><span>Pink over purple</span><span>Ships things</span><span>Guitar riffs</span><span>Fixes what's broken</span><span>Reads the code</span><span>Tests on a phone</span></div></div>
 
 <section id="work"><div class="wrap">
   <h2 data-split>Selected work</h2>
@@ -94,7 +100,13 @@
       <p class="l" style="--n:21;--d:3s">$ cat after-hours.txt</p><p class="l o end" style="--n:26;--d:3.8s">guitar, the technical kind</p>
     </div>
   </div>
-  <div class="about-art"><button class="mascot" type="button" aria-label="Say hi to the mascot"><span class="bubble" aria-live="polite">Hi! Tap me.</span><svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="130" r="100" fill="#ff9ec7" opacity=".07"/><g class="bob"><path d="M42 240c0-52 36-72 78-72s78 20 78 72z" fill="#ff9ec7"/><path d="M98 172l22 26 22-26" fill="none" stroke="#c9648f" stroke-width="5" stroke-linecap="round"/><circle cx="120" cy="106" r="52" fill="#f6d8cc"/><path d="M66 104c-2-40 24-60 54-60s56 20 54 60c-10-22-30-30-54-30s-44 8-54 30z" fill="#4a3a4a"/><path d="M120 74c-6-14 8-22 16-18-8 2-10 10-16 18z" fill="#4a3a4a"/><path d="M62 106a58 58 0 0 1 116 0" fill="none" stroke="#ece8ea" stroke-width="7" stroke-linecap="round"/><rect x="52" y="98" width="16" height="34" rx="8" fill="#ff9ec7" stroke="#ece8ea" stroke-width="3"/><rect x="172" y="98" width="16" height="34" rx="8" fill="#ff9ec7" stroke="#ece8ea" stroke-width="3"/><g class="eyes"><circle cx="100" cy="112" r="9" fill="#fff"/><circle cx="140" cy="112" r="9" fill="#fff"/><g class="pupil"><circle cx="100" cy="112" r="5" fill="#1a1a1a"/><circle cx="140" cy="112" r="5" fill="#1a1a1a"/><circle cx="98" cy="110" r="1.6" fill="#fff"/><circle cx="138" cy="110" r="1.6" fill="#fff"/></g></g><ellipse cx="88" cy="130" rx="8" ry="5" fill="#ff9ec7" opacity=".6"/><ellipse cx="152" cy="130" rx="8" ry="5" fill="#ff9ec7" opacity=".6"/><path d="M112 132q8 8 16 0" fill="none" stroke="#7a4a52" stroke-width="3" stroke-linecap="round"/><rect x="68" y="188" width="104" height="52" rx="6" fill="#161616" stroke="#ff9ec7" stroke-width="2"/><text x="120" y="222" text-anchor="middle" font-size="18" fill="#ff9ec7" font-family="monospace">&lt;/&gt;</text></g><path class="tw" d="M28 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#ff9ec7"/><path class="tw" d="M206 40l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#ff9ec7" style="animation-delay:-1.2s"/></svg></button></div>
+  <div class="about-art"><button class="mascot" type="button" aria-label="Say hi to the mascot"><span class="bubble" aria-live="polite">Hi! Tap me.</span><svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="130" r="100" fill="#ff9ec7" opacity=".07"/><g class="bob"><path d="M42 240c0-52 36-72 78-72s78 20 78 72z" fill="#ff9ec7"/><path d="M98 172l22 26 22-26" fill="none" stroke="#c9648f" stroke-width="5" stroke-linecap="round"/><rect x="108" y="148" width="24" height="28" rx="8" fill="#e6b992"/><circle cx="120" cy="108" r="52" fill="#f3d0ae"/><path d="M66 108C60 58 90 38 122 40c32 2 58 22 52 68-5-14-11-24-22-31-9 9-22 13-36 12-14-1-24 5-30 19z" fill="#17131b"/><path d="M94 76l-9 22 21-16zM124 72l-5 22 19-18zM152 80l2 18-14-12z" fill="#17131b"/><path d="M62 108a58 58 0 0 1 116 0" fill="none" stroke="#ece8ea" stroke-width="7" stroke-linecap="round"/><rect x="52" y="98" width="16" height="34" rx="8" fill="#ff9ec7" stroke="#ece8ea" stroke-width="3"/><rect x="172" y="98" width="16" height="34" rx="8" fill="#ff9ec7" stroke="#ece8ea" stroke-width="3"/><g class="eyes"><ellipse cx="102" cy="117" rx="9" ry="8.5" fill="#fff"/><ellipse cx="138" cy="117" rx="9" ry="8.5" fill="#fff"/><g class="pupil"><ellipse cx="102" cy="117" rx="5.5" ry="6.5" fill="#2a1a1c"/><ellipse cx="138" cy="117" rx="5.5" ry="6.5" fill="#2a1a1c"/><circle cx="100" cy="114" r="2" fill="#fff"/><circle cx="136" cy="114" r="2" fill="#fff"/></g><path d="M92 113q10-7 20 0M128 113q10-7 20 0" fill="none" stroke="#17131b" stroke-width="3" stroke-linecap="round"/></g><g class="shades"><rect x="88" y="106" width="30" height="21" rx="9" fill="#0b0b0b" stroke="#ff9ec7" stroke-width="2.5"/><rect x="122" y="106" width="30" height="21" rx="9" fill="#0b0b0b" stroke="#ff9ec7" stroke-width="2.5"/><path d="M118 114h4" stroke="#ff9ec7" stroke-width="3"/><path d="M94 112l8 0" stroke="#ff9ec7" stroke-width="2" opacity=".7"/></g><ellipse cx="88" cy="132" rx="8" ry="5" fill="#ff9ec7" opacity=".55"/><ellipse cx="152" cy="132" rx="8" ry="5" fill="#ff9ec7" opacity=".55"/><path d="M120 126v4" stroke="#d6a47e" stroke-width="2.5" stroke-linecap="round"/><path d="M110 136q10 9 20 0" fill="none" stroke="#7a4a52" stroke-width="3" stroke-linecap="round"/><rect x="68" y="188" width="104" height="52" rx="6" fill="#161616" stroke="#ff9ec7" stroke-width="2"/><text x="120" y="222" text-anchor="middle" font-size="18" fill="#ff9ec7" font-family="monospace">&lt;/&gt;</text></g><path class="tw" d="M28 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#ff9ec7"/><path class="tw" d="M206 40l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#ff9ec7" style="animation-delay:-1.2s"/></svg></button></div>
+</div></section>
+
+<section id="play"><div class="wrap">
+  <h2 data-split>Squash the bugs</h2>
+  <p class="sub">Twenty seconds. Tap every bug you see. Keyboard works too.</p>
+  <div class="game"><p class="hud">Score <b id="gscore">0</b> Time <b id="gtime">20</b> Best <b id="gbest">0</b></p><div id="arena" class="arena"></div><button id="gstart" class="btn main" type="button">Start</button></div>
 </div></section>
 
 <section class="contact" id="contact"><div class="wrap">
@@ -103,8 +115,11 @@
     <a class="btn main" data-discord target="_blank" rel="noopener">Message on Discord (<span data-handle></span>)</a>
     <a class="btn ghost" data-email>Email <span data-email-text></span></a>
   </div>
+  <p class="copyrow"><button class="linkbtn" type="button" data-copy="email">Copy email</button><button class="linkbtn" type="button" data-copy="handle">Copy Discord handle</button></p>
 </div></section>
 </main>
+<dialog id="cmd" aria-label="Quick jump"><input id="cmdq" type="text" placeholder="Jump to..." aria-label="Search commands" autocomplete="off"><ul id="cmdl" role="listbox" aria-label="Commands"></ul></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <a class="top-btn" href="#top" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
 <footer><div class="wrap">© <span id="y"></span> Xion. Made for dark mode, tuned for phones.</div></footer>
 <script>document.getElementById("y").textContent=new Date().getFullYear()</script>
