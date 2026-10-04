@@ -48,3 +48,6 @@ unzip -o ~/storage/downloads/xion-portfolio.zip
 cd xion-portfolio
 git add . && git commit -m "Update" && git push
 ```
+
+## Adding your beats
+Copy an mp3 into `audio/`, then add an entry in `js/beats.js`, for example `{ title: "Midnight loop", meta: "78 BPM", audio: "audio/midnight-loop.mp3", link: "" }`. Use only music you made or have rights to. The background lo-fi quiets itself while a beat plays.

@@ -3,6 +3,7 @@ import { projects } from "./projects.js";
 import * as music from "./music.js";
 import { initFx } from "./fx.js";
 import { initExtras } from "./extras.js";
+import { initBeats } from "./beats.js";
 import { initPalette } from "./palette.js";
 import { initGame } from "./game.js";
 
@@ -67,6 +68,7 @@ if (!music.userOff()) {
   ["pointerdown", "keydown", "touchend"].forEach((ev) => addEventListener(ev, unlock, { passive: true }));
 }
 paint();
+initBeats();
 initFx();
 initExtras();
 initPalette();

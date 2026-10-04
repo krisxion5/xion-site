@@ -389,3 +389,41 @@ section h2::after{content:"";display:block;width:48px;height:2px;margin-top:.9re
 @keyframes clip{from{clip-path:inset(0 0 100% 0 round 16px)}}
 .js .project.in .media{animation:clip .9s cubic-bezier(.2,.8,.2,1) calc(var(--i,0)*80ms + .1s) backwards}
 @media(hover:none){.stk{animation:none}.track{animation-duration:60s}}
+
+/* ===== Round 11: beats, questions, statement ===== */
+.quote{padding:clamp(5rem,14vw,10rem) 0}
+.quote h2{max-width:16ch;font-size:clamp(2.4rem,7.4vw,5.8rem);line-height:1}
+.quote h2::after{display:none}
+.quote em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;color:var(--pink)}
+.beats{display:grid;gap:1rem;margin:2rem 0}
+.beat{position:relative;display:flex;align-items:center;gap:1rem;overflow:hidden;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:16px;background:var(--surface);transition:border-color .3s}
+.beat:hover{border-color:var(--pink)}
+.beat .info{flex:1}.beat h3{font-size:1.2rem}.beat p{color:var(--dim);font-size:.9rem}
+.beat .prog{position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--pink);transform:scaleX(0);transform-origin:left}
+.listen{color:var(--pink);text-underline-offset:4px}
+.play{position:relative;flex:none;width:48px;height:48px;padding:0;border:1px solid var(--pink);border-radius:50%;background:none;cursor:pointer;transition:transform .2s}
+.play:active{transform:scale(.92)}
+.play::before{content:"";position:absolute;left:19px;top:15px;border-left:14px solid var(--pink);border-top:9px solid transparent;border-bottom:9px solid transparent}
+.play[aria-pressed=true]::before{left:17px;top:16px;width:5px;height:16px;border:0;background:var(--pink);box-shadow:9px 0 var(--pink)}
+#beat-empty[hidden]{display:none}
+.padbox{margin-top:2.5rem;padding:1.4rem;border:1px solid var(--line);border-radius:16px;background:radial-gradient(80% 120% at 50% 0%,rgba(255,158,199,.07),transparent),var(--surface)}
+.padtop{display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem;margin-bottom:1.2rem;color:var(--dim)}
+.padtop input{accent-color:var(--pink);vertical-align:middle}.padtop b{color:var(--pink);font-weight:600}
+.pad{display:grid;gap:.6rem}
+.prow{display:grid;grid-template-columns:3.2rem repeat(16,1fr);gap:.3rem;align-items:center}
+.prow>span{color:var(--dim);font-size:.8rem}
+.cell{aspect-ratio:1;min-width:0;padding:0;border:1px solid var(--line);border-radius:6px;background:#0f0e0f;cursor:pointer;transition:background .12s,border-color .12s,transform .12s}
+.cell:nth-of-type(4n+1){border-color:#2c2b2c}
+.cell[aria-pressed=true]{background:var(--pink);border-color:var(--pink);box-shadow:0 0 12px -2px rgba(255,158,199,.6)}
+.cell.now{transform:scale(1.18);border-color:#fff}
+.cell:active{transform:scale(.9)}
+.padhint{margin-top:1rem;color:var(--dim);font-size:.85rem}
+.faq{display:grid;gap:.6rem;max-width:760px}
+.faq details{padding:0 1.2rem;border:1px solid var(--line);border-radius:14px;background:var(--surface);transition:border-color .3s}
+.faq details[open],.faq details:hover{border-color:rgba(255,158,199,.5)}
+.faq summary{display:flex;justify-content:space-between;gap:1rem;padding:1.1rem 0;list-style:none;cursor:pointer;font:600 1.15rem "Bricolage Grotesque",sans-serif}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--pink);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 1.2rem;color:var(--dim);animation:rise .4s ease both}
+@media(max-width:640px){.prow{grid-template-columns:2.6rem repeat(8,1fr)}.prow>span{grid-row:span 2}}

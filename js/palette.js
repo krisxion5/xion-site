@@ -18,7 +18,7 @@ export function initPalette() {
   const dlg = $("#cmd"), q = $("#cmdq"), list = $("#cmdl");
   const cmds = [
     ["Work", go("work")], ["MCPE Community", go("mcpe")], ["Skills", go("skills")], ["How I work", go("process")],
-    ["Beyond code", go("beyond")], ["About", go("about")], ["Play: squash bugs", go("play")], ["Contact", go("contact")],
+    ["Beyond code", go("beyond")], ["Beats", go("beats")], ["Questions", go("faq")], ["About", go("about")], ["Play: squash bugs", go("play")], ["Contact", go("contact")],
     ["Toggle music", () => { const s = music.state(); s === "waiting" ? music.unlock() : s === "on" ? music.stop() : music.start(); }],
     ["Copy email", () => copy(CONFIG.email, "Email")], ["Copy Discord handle", () => copy(CONFIG.discordHandle, "Handle")],
     ["Open Discord", () => window.open(CONFIG.discordUrl, "_blank", "noopener")], ["Back to top", go("top")],

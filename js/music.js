@@ -136,3 +136,8 @@ export function blip(f = 660) {
   g.gain.setValueAtTime(0.08, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
   o.connect(g); g.connect(bus); g.connect(verbIn); o.start(t); o.stop(t + 0.14);
 }
+
+// Quiet the background lo-fi while a beat or the pad is playing.
+export function duck(on) {
+  if (master && want) master.gain.setTargetAtTime(on ? gainOf(vol) * 0.12 : gainOf(vol), ctx.currentTime, 0.2);
+}
