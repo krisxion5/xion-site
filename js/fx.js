@@ -42,13 +42,13 @@ function navState() {
 }
 
 function scrollUi() {
-  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu"), hero = $(".hero"), topBtn = $(".top-btn");
+  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu"), hero = $(".hero"), wrap = $(".wrap", hero), wm = $(".wm", hero), topBtn = $(".top-btn");
   bar.className = "bar"; bar.setAttribute("aria-hidden", "true"); header.append(bar);
   let last = 0, queued = false;
   const frame = () => {
     const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
-    if (y < innerHeight * 1.2) hero.style.setProperty("--p", Math.min(y / innerHeight, 1).toFixed(3));
+    if (!reduce && y < innerHeight * 1.2) { const p = Math.min(y / innerHeight, 1); wrap.style.transform = `translate3d(0,${(-p * 50).toFixed(1)}px,0)`; wrap.style.opacity = (1 - p * 1.1).toFixed(2); wm.style.transform = `translate3d(${(-p * 7).toFixed(2)}vw,0,0)`; }
     topBtn.classList.toggle("show", y > 700);
     if (!reduce && menu.getAttribute("aria-expanded") !== "true" && Math.abs(y - last) > 6) {
       header.classList.toggle("hide", y > last && y > 240);
@@ -61,7 +61,6 @@ function scrollUi() {
 
 // One soft light follows a mouse over the hero; touch devices simply see it parked.
 function heroLight(hero) {
-  const spot = document.createElement("div"); spot.className = "spot"; hero.prepend(spot);
   let rect, dirty = true, x = 0, y = 0, nx = 0, ny = 0, raf = 0;
   const stk = $$(".stk");
   addEventListener("scroll", () => (dirty = true), { passive: true });
@@ -71,8 +70,7 @@ function heroLight(hero) {
     if (dirty) { rect = hero.getBoundingClientRect(); dirty = false; }
     x = e.clientX - rect.left - 260; y = e.clientY - rect.top - 260;
     nx = (e.clientX - rect.left) / rect.width - 0.5; ny = (e.clientY - rect.top) / rect.height - 0.5;
-    raf = raf || requestAnimationFrame(() => { spot.style.transform = `translate3d(${x}px,${y}px,0)`;
-      stk.forEach((s, i) => (s.style.translate = `${(-nx * (i + 1) * 14).toFixed(1)}px ${(-ny * (i + 1) * 14).toFixed(1)}px`)); raf = 0; });
+    raf = raf || requestAnimationFrame(() => { stk.forEach((s, i) => (s.style.translate = `${(-nx * (i + 1) * 14).toFixed(1)}px ${(-ny * (i + 1) * 14).toFixed(1)}px`)); raf = 0; });
   }, { passive: true });
 }
 
@@ -90,12 +88,18 @@ export function initFx() {
   $$("[data-split]").forEach(split);
   reveals(title); navState(); scrollUi();
   const root = document.documentElement;
-  const boot = new Promise((r) => {
-    if (!root.classList.contains("booting")) return r();
-    setTimeout(() => {
-      $("#boot").classList.add("done"); try { sessionStorage.setItem("xion-boot", "1"); } catch {}
-      setTimeout(() => { root.classList.remove("booting"); r(); }, 450);
-    }, 1100);
+  const boot = new Promise((r) => { // name intro, then a curtain lift reveals the site. Tap or any key skips it.
+    const b = $("#boot");
+    if (!root.classList.contains("booting") || !b) { root.classList.remove("holding"); return r(); }
+    let done = false;
+    const finish = () => {
+      if (done) return; done = true; b.classList.add("done");
+      setTimeout(() => { root.classList.remove("holding"); r(); }, 350);
+      setTimeout(() => root.classList.remove("booting"), 1100);
+    };
+    const ready = document.fonts ? Promise.race([document.fonts.ready, new Promise((x) => setTimeout(x, 600))]) : Promise.resolve();
+    ready.then(() => { b.classList.add("go"); setTimeout(finish, 2400); });
+    ["pointerdown", "keydown"].forEach((ev) => addEventListener(ev, finish, { once: true }));
   });
   const fonts = document.fonts ? Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 700))]) : Promise.resolve();
   Promise.all([fonts, boot]).then(() => requestAnimationFrame(() => title.classList.add("in")));
