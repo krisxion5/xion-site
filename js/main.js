@@ -53,6 +53,17 @@ vol.value = music.getVolume();
 const labels = { off: "Music off", waiting: "Tap for music", on: "Music on" };
 const paint = () => { const s = music.state(); mb.setAttribute("aria-pressed", s !== "off"); mb.querySelector("span").textContent = labels[s]; };
 music.onChange(paint);
+let noteTimer;
+music.onChange(() => {
+  clearInterval(noteTimer);
+  if (music.state() !== "on") return;
+  noteTimer = setInterval(() => {
+    if (document.hidden) return;
+    const n = document.createElement("b"); n.className = "mnote"; n.setAttribute("aria-hidden", "true"); n.textContent = "\u266A";
+    n.style.setProperty("--x", (Math.random() * 30 - 15).toFixed(0) + "px");
+    n.addEventListener("animationend", () => n.remove()); mb.append(n);
+  }, 2600);
+});
 mb.addEventListener("click", () => {
   const s = music.state();
   if (s === "waiting") music.unlock(); else if (s === "on") music.stop(); else music.start();

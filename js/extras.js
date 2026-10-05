@@ -112,10 +112,49 @@ function glow() { // soft pink light under the mouse, one fixed element
   document.documentElement.addEventListener("mouseleave", () => g.classList.remove("on"));
 }
 
+// Project art is fetched and inlined when it nears the screen, so its layers can move with depth.
+function inlineArt() {
+  const io = new IntersectionObserver((es) => es.forEach((en) => {
+    if (!en.isIntersecting) return;
+    io.unobserve(en.target);
+    const img = $("img", en.target); if (!img || !img.src.endsWith(".svg")) return;
+    fetch(img.src).then((r) => r.text()).then((t) => {
+      const doc = new DOMParser().parseFromString(t.replace(/@media\(prefers-reduced-motion:reduce\)\{\*\{animation:none!important\}\}/, ""), "image/svg+xml");
+      const svg = doc.documentElement; if (svg.nodeName !== "svg") return;
+      const node = document.importNode(svg, true);
+      node.setAttribute("role", "img"); node.setAttribute("aria-label", img.alt || "");
+      img.replaceWith(node);
+    }).catch(() => {});
+  }), { rootMargin: "200px" });
+  $$(".project .media").forEach((m) => io.observe(m));
+}
+function depth() { // touch: layers follow a finger resting on the picture
+  $$(".media").forEach((m) => {
+    m.addEventListener("pointermove", (e) => {
+      const r = m.getBoundingClientRect();
+      m.style.setProperty("--px", ((e.clientX - r.left) / r.width - 0.5).toFixed(2));
+      m.style.setProperty("--py", ((e.clientY - r.top) / r.height - 0.5).toFixed(2));
+    }, { passive: true });
+    ["pointerup", "pointercancel", "pointerleave"].forEach((ev) => m.addEventListener(ev, () => { m.style.removeProperty("--px"); m.style.removeProperty("--py"); }));
+  });
+}
+function rail() { // desktop section dots
+  const items = [["work", "Work"], ["mcpe", "MCPE"], ["skills", "Skills"], ["process", "How I work"], ["beats", "Beats"], ["about", "About"], ["contact", "Contact"]];
+  const n = document.createElement("nav"); n.className = "rail"; n.setAttribute("aria-label", "Sections");
+  items.forEach(([id, label]) => { const a = document.createElement("a"); a.href = "#" + id; a.dataset.l = label; a.setAttribute("aria-label", label); n.append(a); });
+  document.body.append(n);
+  const io = new IntersectionObserver((es) => es.forEach((en) => {
+    if (!en.isIntersecting) return;
+    n.querySelectorAll("a").forEach((a) => a.getAttribute("href") === "#" + en.target.id ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current"));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  items.forEach(([id]) => { const s = document.getElementById(id); if (s) io.observe(s); });
+}
+
 export function initExtras() {
   const t0 = document.title;
   document.addEventListener("visibilitychange", () => (document.title = document.hidden ? "psst. come back" : t0));
-  typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); pauseOffscreen(".rig"); mascot();
+  typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); pauseOffscreen(".rig"); pauseOffscreen(".media"); pauseOffscreen(".notecard"); pauseOffscreen(".room");
+  const stars = document.createElement("div"); stars.className = "stars"; stars.setAttribute("aria-hidden", "true"); document.body.prepend(stars); inlineArt(); rail(); if (!fine && !reduce) depth(); mascot();
   if (!reduce) sparks();
   if (fine && !reduce) { tilt(); magnet(); cursor(); glow(); }
 }

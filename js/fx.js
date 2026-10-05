@@ -21,7 +21,7 @@ function split(h) {
 
 function reveals(heroTitle) {
   const count = new Map();
-  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li,.term,.game,.rig,.faq details,.padbox,.beat").forEach((el) => {
+  $$(".sub,.cols p,.skills li,.contact .cta,.project,.steps li,.term,.game,.rig,.faq details,.padbox,.beat,.notecard").forEach((el) => {
     const k = count.get(el.parentNode) || 0; count.set(el.parentNode, k + 1);
     el.classList.add("rv"); el.style.setProperty("--i", Math.min(k, 8));
   });
@@ -75,12 +75,15 @@ function heroLight(hero) {
 }
 
 function cardGlow() {
-  $$(".project .media").forEach((m) => m.addEventListener("pointermove", (e) => {
-    if (e.pointerType !== "mouse") return;
-    const r = m.getBoundingClientRect();
-    m.style.setProperty("--mx", e.clientX - r.left + "px");
-    m.style.setProperty("--my", e.clientY - r.top + "px");
-  }, { passive: true }));
+  $$(".project .media").forEach((m) => {
+    m.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const r = m.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      m.style.setProperty("--mx", x + "px"); m.style.setProperty("--my", y + "px");
+      m.style.setProperty("--px", (x / r.width - 0.5).toFixed(2)); m.style.setProperty("--py", (y / r.height - 0.5).toFixed(2));
+    }, { passive: true });
+    m.addEventListener("pointerleave", () => { m.style.removeProperty("--px"); m.style.removeProperty("--py"); });
+  });
 }
 
 export function initFx() {

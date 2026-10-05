@@ -76,8 +76,8 @@ function pad() {
     while (next < ctx.currentTime + 0.15) {
       const i = step % 16, t = next + (i % 2 ? sd * 0.12 : 0);
       if (grid[0][i]) kick(t);
-      if (grid[1][i]) noise(t, "bandpass", 1700, 0.2, 0.14);
-      if (grid[2][i]) noise(t, "highpass", 7500, 0.07, 0.04);
+      if (grid[1][i]) noise(t, "bandpass", 1700, 0.12, 0.14);
+      if (grid[2][i]) noise(t, "highpass", 5000, 0.035, 0.04);
       mark(i, t); next += sd; step++;
     }
   };
@@ -93,7 +93,7 @@ function pad() {
       nb = ctx.createBuffer(1, ctx.sampleRate / 2, ctx.sampleRate);
       const d = nb.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
       out = ctx.createGain(); out.gain.value = 0.5;
-      const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 6000; out.connect(lp).connect(ctx.destination);
+      const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4500; out.connect(lp).connect(ctx.destination);
     }
     await ctx.resume();
     playing = true; step = 0; next = ctx.currentTime + 0.05; timer = setInterval(tick, 50);

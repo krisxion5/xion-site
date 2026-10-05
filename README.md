@@ -29,10 +29,7 @@ git push -u origin main
 3. Deploy. Every push to `main` redeploys. Update `siteUrl` after you get your domain.
 
 ## Music
-Lo-fi is synthesized in the browser (`js/music.js`): electric-piano chords, soft drums, bass and vinyl crackle. No audio files, no licensing. It is on by default at a low volume, with a slider in the nav. Browsers block sound until the first tap, so the button reads "Tap for music" until then. Turning it off is remembered.
-
-## Music details
-Eight-chord loop (Dm9, G13, Cmaj9, Am9, Fmaj9, Bm7b5, E7b9, Am9) at 72 BPM, stereo-spread electric piano, dotted echo, slow filter drift, soft kick ducking and vinyl dust. The logo dot and the mascot ring pulse on the kick.
+Soft, cute lo-fi synthesized in the browser (`js/music.js`): electric-piano chords (Cmaj9, Am9, Fmaj9, G6), a little music-box melody, gentle bass and soft ticks. No noise, no crackle, no files and no licensing. On by default at a low volume with a slider in the nav. Browsers block sound until the first tap, so the button reads "Tap for music" until then. Turning it off is remembered. The logo dot and the mascot ring pulse on the thump, and small notes float up from the button while it plays.
 
 ## Motion and performance
 Animations live in `js/fx.js` and the bottom of `css/style.css`. They use only transform and opacity, run once on scroll via IntersectionObserver, pause when the tab is hidden or the hero is off screen, and switch off with `prefers-reduced-motion`. There is no canvas, no particle system and no animated blur. Mouse-only extras (hero light, card glow) are skipped on touch devices.
@@ -51,3 +48,6 @@ git add . && git commit -m "Update" && git push
 
 ## Adding your beats
 Copy an mp3 into `audio/`, then add an entry in `js/beats.js`, for example `{ title: "Midnight loop", meta: "78 BPM", audio: "audio/midnight-loop.mp3", link: "" }`. Use only music you made or have rights to. The background lo-fi quiets itself while a beat plays.
+
+## My note
+`note.html` (with `css/note.css` and `js/note.js`) holds "The Infinite Paradox". Edit the text directly in `note.html`; chapters are plain `<section class="ch">` blocks.
