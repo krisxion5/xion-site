@@ -50,10 +50,11 @@ function scrollUi() {
     bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
     if (!reduce && y < innerHeight * 1.2) { const p = Math.min(y / innerHeight, 1); wrap.style.transform = `translate3d(0,${(-p * 50).toFixed(1)}px,0)`; wrap.style.opacity = (1 - p * 1.1).toFixed(2); wm.style.transform = `translate3d(${(-p * 7).toFixed(2)}vw,0,0)`; }
     topBtn.classList.toggle("show", y > 700);
-    if (!reduce && menu.getAttribute("aria-expanded") !== "true" && Math.abs(y - last) > 6) {
-      header.classList.toggle("hide", y > last && y > 240);
-    }
-    last = y; queued = false;
+    const dy = y - last;
+    if (fine && !reduce && menu.getAttribute("aria-expanded") !== "true") {
+      if (Math.abs(dy) > 14) { header.classList.toggle("hide", dy > 0 && y > 420); last = y; }
+    } else last = y;
+    queued = false;
   };
   addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
   frame();

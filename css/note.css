@@ -1,8 +1,7 @@
-@view-transition{navigation:auto}
 :root{--pink:#ff9ec7;--ink:#efeaec;--dim:#8f888d;--line:#1b1a1b;--serif:"Instrument Serif",Georgia,serif;--body:"Newsreader",Georgia,serif}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;scroll-padding-top:5rem;background:#000;scrollbar-color:#2a2a2a #000}
-body{background:transparent;color:#d9d3d6;font:400 clamp(1.1rem,2.4vw,1.28rem)/1.8 var(--body);animation:fade .8s ease both;-webkit-tap-highlight-color:transparent}
+body{background:transparent;color:#d9d3d6;font:400 clamp(1.1rem,2.4vw,1.28rem)/1.8 var(--body);animation:fade .8s ease backwards;-webkit-tap-highlight-color:transparent}
 body::before{content:"";position:fixed;top:-25vmax;right:-25vmax;z-index:-1;width:70vmax;height:70vmax;pointer-events:none;background:radial-gradient(closest-side,rgba(255,158,199,.08),transparent)}
 ::selection{background:var(--pink);color:#000}
 a{color:inherit}:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:4px}

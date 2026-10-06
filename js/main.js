@@ -4,6 +4,7 @@ import * as music from "./music.js";
 import { initFx } from "./fx.js";
 import { initExtras } from "./extras.js";
 import { initBeats } from "./beats.js";
+import { art } from "./art.js";
 import { initPalette } from "./palette.js";
 import { initGame } from "./game.js";
 
@@ -27,6 +28,9 @@ projects.forEach((p, i) => {
     const img = new Image(); img.src = p.image; img.alt = p.alt || `Illustration for ${p.title}`;
     img.loading = "lazy"; img.decoding = "async"; img.width = 1200; img.height = 750;
     media.append(img);
+  } else if (p.art && art[p.art]) {
+    media.setAttribute("role", "img"); media.setAttribute("aria-label", p.alt || `Illustration for ${p.title}`);
+    const st = el("div", "stage"); st.innerHTML = `<i class="l1"></i><div class="l2">${art[p.art]}</div><div class="l3">${art[p.art]}</div>`; media.append(st);
   } else { media.append(el("span", "ph", p.title)); media.setAttribute("aria-hidden", "true"); }
   const body = el("div", "body");
   body.append(el("h3", "", p.title), el("p", "", p.detail || p.summary));

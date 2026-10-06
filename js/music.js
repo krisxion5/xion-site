@@ -61,7 +61,7 @@ function kick(t) { // a soft thump, plus a visual pulse on the page
   o.frequency.setValueAtTime(160, t); o.frequency.exponentialRampToValueAtTime(75, t + 0.12);
   g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
   o.connect(g); out(g, 0, false); o.start(t); o.stop(t + 0.22);
-  setTimeout(() => { const c = document.documentElement.classList; c.add("beat"); setTimeout(() => c.remove("beat"), 140); }, Math.max(0, (t - ctx.currentTime) * 1000));
+  setTimeout(() => { const els = document.querySelectorAll("[data-beat]"); els.forEach((e) => e.classList.add("pulse")); setTimeout(() => els.forEach((e) => e.classList.remove("pulse")), 140); }, Math.max(0, (t - ctx.currentTime) * 1000));
 }
 function tick(t) { // tiny wood-block tick instead of noisy snares or hats
   const o = ctx.createOscillator(), g = ctx.createGain(); o.type = "triangle";
