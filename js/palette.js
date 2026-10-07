@@ -1,6 +1,7 @@
 // Quick-jump menu (Ctrl/Cmd+K or the Jump button), copy buttons and toast.
 import { CONFIG } from "./config.js";
 import * as music from "./music.js";
+import { toggleLite } from "./extras.js";
 const $ = (s) => document.querySelector(s);
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let toastTimer;
@@ -21,7 +22,7 @@ export function initPalette() {
     ["Beyond code", go("beyond")], ["Beats", go("beats")], ["My note: The Infinite Paradox", () => { location.href = "note.html"; }], ["Questions", go("faq")], ["About", go("about")], ["Play: squash bugs", go("play")], ["Contact", go("contact")],
     ["Toggle music", () => { const s = music.state(); s === "waiting" ? music.unlock() : s === "on" ? music.stop() : music.start(); }],
     ["Copy email", () => copy(CONFIG.email, "Email")], ["Copy Discord handle", () => copy(CONFIG.discordHandle, "Handle")],
-    ["Open Discord", () => window.open(CONFIG.discordUrl, "_blank", "noopener")], ["Back to top", go("top")],
+    ["Open Discord", () => window.open(CONFIG.discordUrl, "_blank", "noopener")], ["Performance mode", () => toast(toggleLite() ? "Performance mode on" : "Performance mode off")], ["Back to top", go("top")],
   ];
   let shown = cmds, sel = 0;
   const draw = () => {

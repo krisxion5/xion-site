@@ -42,13 +42,13 @@ function navState() {
 }
 
 function scrollUi() {
-  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu"), hero = $(".hero"), wrap = $(".wrap", hero), wm = $(".wm", hero), topBtn = $(".top-btn");
+  const header = $("header.top"), bar = document.createElement("i"), menu = $("#menu"), hero = $(".hero"), wrap = $(".wrap", hero), topBtn = $(".top-btn");
   bar.className = "bar"; bar.setAttribute("aria-hidden", "true"); header.append(bar);
   let last = 0, queued = false;
   const frame = () => {
     const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
-    if (!reduce && y < innerHeight * 1.2) { const p = Math.min(y / innerHeight, 1); wrap.style.transform = `translate3d(0,${(-p * 50).toFixed(1)}px,0)`; wrap.style.opacity = (1 - p * 1.1).toFixed(2); wm.style.transform = `translate3d(${(-p * 7).toFixed(2)}vw,0,0)`; }
+    if (!reduce && y < innerHeight * 1.2) { const p = Math.min(y / innerHeight, 1); wrap.style.transform = `translate3d(0,${(-p * 50).toFixed(1)}px,0)`; wrap.style.opacity = (1 - p * 1.1).toFixed(2); }
     topBtn.classList.toggle("show", y > 700);
     const dy = y - last;
     if (fine && !reduce && menu.getAttribute("aria-expanded") !== "true") {

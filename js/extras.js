@@ -66,6 +66,24 @@ function cursor() {
   document.documentElement.addEventListener("mouseleave", () => c.classList.remove("on"));
 }
 
+export // Performance mode: phones start in it; desktops can switch it from the quick menu (Ctrl+K).
+const root = document.documentElement;
+const savedLite = (() => { try { return localStorage.getItem("xion-lite"); } catch { return null; } })();
+root.classList.toggle("lite", savedLite ? savedLite === "1" : matchMedia("(hover: none)").matches);
+export function toggleLite() {
+  const on = root.classList.toggle("lite");
+  try { localStorage.setItem("xion-lite", on ? "1" : "0"); } catch {}
+  return on;
+}
+function petals() { // eight slow petals, desktop only
+  const w = document.createElement("div"); w.className = "petals"; w.setAttribute("aria-hidden", "true");
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement("i"); p.className = "petal";
+    p.style.cssText = `--x:${(6 + i * 12 + Math.random() * 6).toFixed(0)}%;--d:${(16 + Math.random() * 10).toFixed(1)}s;--s:-${(Math.random() * 20).toFixed(1)}s;--r:${(Math.random() * 30 - 15).toFixed(0)}vw`;
+    w.append(p);
+  }
+  document.querySelector(".bg").after(w);
+}
 export function burst(x, y, n = 6) {
   for (let i = 0; i < n; i++) {
     const s = document.createElement("i"), a = (Math.PI * 2 * i) / n + Math.random() * 0.6, d = 28 + Math.random() * 34;
@@ -138,7 +156,7 @@ export function initExtras() {
   const t0 = document.title;
   document.addEventListener("visibilitychange", () => (document.title = document.hidden ? "psst. come back" : t0));
   typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); pauseOffscreen(".rig"); pauseOffscreen(".media"); pauseOffscreen(".notecard"); pauseOffscreen(".room");
-  const stars = document.createElement("div"); stars.className = "stars"; stars.setAttribute("aria-hidden", "true"); document.body.prepend(stars); rail(); if (!fine && !reduce) depth(); mascot();
+  if (fine && !reduce) petals(); rail(); if (!fine && !reduce) depth(); mascot();
   if (!reduce) sparks();
   if (fine && !reduce) { tilt(); magnet(); cursor(); glow(); }
 }
