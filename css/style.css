@@ -554,14 +554,39 @@ section[data-bg]{position:relative}
 section[data-bg]::after{content:attr(data-bg);position:absolute;right:-2vw;top:4%;z-index:0;font:600 clamp(5rem,22vw,17rem)/1 "Bricolage Grotesque",sans-serif;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(255,158,199,.13);white-space:nowrap;pointer-events:none;user-select:none}
 @supports (animation-timeline:view()){section[data-bg]::after{animation:ghost linear both;animation-timeline:view()}}
 
-/* ===== Villain: horns + ember ===== */
-:root{--ember:#ff2a4d}
-.hhorns{position:absolute;inset:0 0 auto 0;height:clamp(150px,34vw,300px);pointer-events:none;z-index:0;display:flex;justify-content:center;opacity:.9;filter:drop-shadow(0 0 18px rgba(255,42,77,.35));animation:hornin 1.2s cubic-bezier(.2,.7,.2,1) both}
-.hhorns svg{width:min(100%,900px);height:100%}
-.hero .wrap{position:relative;z-index:1}
-.hero h1 em{color:var(--ember);text-shadow:0 0 24px rgba(255,42,77,.45)}
-.mascot .horns{filter:drop-shadow(0 0 6px rgba(255,42,77,.55))}
-.mascot .horns path:first-child,.mascot .horns path:nth-child(2){animation:hornglow 3.2s ease-in-out infinite}
-@keyframes hornin{from{opacity:0;transform:translateY(-22px)}to{opacity:.9;transform:none}}
-@keyframes hornglow{50%{stroke-opacity:.45}}
-@media(prefers-reduced-motion:reduce){.hhorns,.mascot .horns path{animation:none!important}}
+/* ===== Round 17: villain horns (static art, transform/opacity/scale only) ===== */
+@keyframes hornin{from{opacity:0;translate:0 24px;scale:.82}}
+@keyframes hornrot{to{rotate:var(--hr)}}
+@keyframes hgrow{from{opacity:0;scale:1 .1}to{opacity:1;scale:1 1}}
+.hn{display:block;width:100%;height:100%;overflow:visible}
+.horns{position:absolute;left:50%;top:-38%;width:100%;height:50%;transform:translateX(-50%);pointer-events:none}
+.horns .hn{position:absolute;bottom:0;width:34%;height:100%;animation:hornin 1.2s cubic-bezier(.2,.8,.2,1) 1s backwards}
+.horns .hl{right:50%;margin-right:7%;transform-origin:100% 100%;--hr:-16deg}
+.horns .hr{left:50%;margin-left:7%;transform:scaleX(-1);transform-origin:0 100%;--hr:16deg}
+@supports (animation-timeline:scroll()){.horns .hn{animation:hornin 1.2s cubic-bezier(.2,.8,.2,1) 1s backwards,hornrot linear both;animation-timeline:auto,scroll(root)}}
+.bhorns{position:relative;width:min(74vw,26rem);height:clamp(3.6rem,15vw,6.8rem);margin:0 auto -.5rem}
+.bhorns .hn{position:absolute;bottom:0;width:22%;height:100%;opacity:0;transform-origin:50% 100%}
+.bhorns .hl{left:8%}.bhorns .hr{right:8%;transform:scaleX(-1)}
+.boot.go .bhorns .hn{animation:hgrow .9s cubic-bezier(.2,.8,.2,1) .75s forwards}
+.fhorns{display:flex;justify-content:center;gap:.5rem;height:2.8rem;margin-bottom:.9rem;opacity:.85}
+.fhorns .hn{width:1.8rem}.fhorns .hr{transform:scaleX(-1)}
+.mascot svg{overflow:visible}
+@media(max-width:760px){.horns{top:-30%}}
+
+.horns .hl{margin-right:10%}.horns .hr{margin-left:10%}
+.horns{top:-42%;height:54%}
+@media(max-width:760px){.horns{top:-34%}}
+/* horns sit on the ring's shoulders, not at its centre */
+.horns{inset:0;left:0;top:0;width:auto;height:auto;transform:none}
+.horns .hn{width:30%;height:46%;bottom:auto;top:auto}
+.horns .hl{right:auto;left:-6%;margin:0;bottom:88%}
+.horns .hr{left:auto;right:-6%;margin:0;bottom:88%}
+@media(max-width:760px){.horns{top:0}}
+
+/* ===== Round 18: villain entity, not a cartoon ===== */
+.entity{position:absolute;inset:4% 8% 0;pointer-events:none}
+.ent{display:block;width:100%;height:100%;overflow:visible}
+.eyes2{transform:translate(calc(var(--ex,0)*1px),calc(var(--ey,0)*1px));transition:transform .25s ease-out}
+.hero{background:radial-gradient(120% 100% at 72% 42%,transparent 38%,rgba(0,0,0,.62)),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.4) 58%,rgba(0,0,0,.08) 100%),linear-gradient(180deg,transparent 62%,rgba(0,0,0,.66) 100%)}
+@media(max-width:760px){.hero{background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.5) 55%,rgba(0,0,0,.7) 100%)}}
+.reticle{opacity:.95}

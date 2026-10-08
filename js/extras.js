@@ -152,11 +152,23 @@ function rail() { // desktop section dots
   items.forEach(([id]) => { const s = document.getElementById(id); if (s) io.observe(s); });
 }
 
+function entityEyes() { // the entity's eyes follow the mouse a little (desktop only)
+  const hero = document.querySelector(".hero"), ent = document.querySelector(".entity");
+  if (!hero || !ent) return;
+  let raf = 0, x = 0, y = 0;
+  hero.addEventListener("pointermove", (ev) => {
+    const r = ent.getBoundingClientRect();
+    x = Math.max(-1, Math.min(1, (ev.clientX - r.left - r.width / 2) / 400)) * 9;
+    y = Math.max(-1, Math.min(1, (ev.clientY - r.top - r.height / 2) / 400)) * 5;
+    raf = raf || requestAnimationFrame(() => { ent.style.setProperty("--ex", x.toFixed(1)); ent.style.setProperty("--ey", y.toFixed(1)); raf = 0; });
+  }, { passive: true });
+}
+
 export function initExtras() {
   const t0 = document.title;
   document.addEventListener("visibilitychange", () => (document.title = document.hidden ? "psst. come back" : t0));
   typed(); pauseOffscreen(".marquee"); pauseOffscreen(".mascot"); pauseOffscreen(".rig"); pauseOffscreen(".media"); pauseOffscreen(".notecard"); pauseOffscreen(".room");
   if (fine && !reduce) petals(); rail(); if (!fine && !reduce) depth(); mascot();
   if (!reduce) sparks();
-  if (fine && !reduce) { tilt(); magnet(); cursor(); glow(); }
+  if (fine && !reduce) { entityEyes(); tilt(); magnet(); cursor(); glow(); }
 }
